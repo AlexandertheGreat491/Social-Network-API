@@ -7,6 +7,7 @@ const { Schema, Type, Types } = require("mongoose");
 const dateFormat = require("../utils/dateFormat");
 
 // the reaction schema is associated with the thought model & schema
+// reaction schema only
 const reactionSchema = new Schema({
   // reactioinId field
   // sets a custom id to prevent confusion with the parent id
@@ -41,3 +42,6 @@ const reactionSchema = new Schema({
     id: false
 }
 );
+
+// exports the reaction.Schema
+module.exports = reactionSchema;
