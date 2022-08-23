@@ -10,10 +10,17 @@ const dateFormat = require('../utils/dateFormat');
 const thoughtSchema = new Schema(
     
         {
+            // thoughtText field that has between 1 and 280 characters
             thoughtText: {
                 type: String,
                 required: true,
                 maxLength: 280
+            },
+            // createdAt field that will have the current timestamp
+            createdAt: {
+                type: Date,
+                default: Date.now,
+                get: (createdAtVal) => dateFormat(createdAtVal),
             },
         }
     
