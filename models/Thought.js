@@ -2,8 +2,8 @@
 const { Schema, model, Types } = require("mongoose");
 // imports the logic to format the data entered into the createdAt fields
 const dateFormat = require("../utils/dateFormat");
-
-//reaction schema will go here
+// imports the reactionSchema
+const reactionSchema = require('./Reaction');
 
 const thoughtSchema = new Schema({
   // thoughtText field that has between 1 and 280 characters
