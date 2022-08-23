@@ -1,6 +1,6 @@
 //import statements
 const { Schema, model, Types } = require("mongoose");
-// imports the logic to format the data entered into the createdAt fields
+// imports the logic to format the data entered into the createdAt field
 const dateFormat = require("../utils/dateFormat");
 // imports the reactionSchema
 const reactionSchema = require('./Reaction');
