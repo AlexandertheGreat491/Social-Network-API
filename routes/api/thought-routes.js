@@ -19,3 +19,10 @@ router
 .route('/')
 .get(getAllThoughts)
 .post(createThought)
+
+// /api/thoughts/<thoughtId>
+// route will GET thoughts by id & PUT (update) thoughts by id
+router
+.route('/:thoughtId')
+.get(getThoughtById)
+.put(updateThought)
