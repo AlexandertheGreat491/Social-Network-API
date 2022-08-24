@@ -1,6 +1,5 @@
 // imports the models
 const { User } = require("../models");
-const { populate } = require("../models/User");
 
 const userController = {
   // the getAllUsers method will get all the users present in the database
@@ -40,43 +39,61 @@ const userController = {
       });
   },
   // the createUser method will create a new user in the database
-  createUser({body}, res) {
+  createUser({ body }, res) {
     User.create(body)
-    .then((dbUserData) => res.json(dbUserData))
-    .catch((err) => res.status(400).json(err));
+      .then((dbUserData) => res.json(dbUserData))
+      .catch((err) => res.status(400).json(err));
   },
   // the updateUser method updates a user
-  updateUser({params, body}, res) {
-    User.findOneAndUpdate({_id: params.id}, body, {new: true})
-    .then((dbUserData) => {
-      if (!dbUserData) {
-        res.status(404).json({message: "No user found with this ID!"});
-        return;
-      }
-      res.json(dbUserData);
-    })
-    .catch((err) => res.status(400).json(err));
+  updateUser({ params, body }, res) {
+    User.findOneAndUpdate({ _id: params.id }, body, { new: true })
+      .then((dbUserData) => {
+        if (!dbUserData) {
+          res.status(404).json({ message: "No user found with this ID!" });
+          return;
+        }
+        res.json(dbUserData);
+      })
+      .catch((err) => res.status(400).json(err));
   },
   // the deleteUser method will remove a user from the database
-  deleteUser({params}, res) {
-    User.findOneAndDelete({_id: params.id})
-    .then((dbUserData) => {
-      if (!dbUserData) {
-        res.status(404).json({message: "A user with this ID was not found!"});
-        return;
-      }
-      res.json(dbUserData);
-    })
-    .catch((err) => res.status(400).json(err));
+  deleteUser({ params }, res) {
+    User.findOneAndDelete({ _id: params.id })
+      .then((dbUserData) => {
+        if (!dbUserData) {
+          res
+            .status(404)
+            .json({ message: "A user with this ID was not found!" });
+          return;
+        }
+        res.json(dbUserData);
+      })
+      .catch((err) => res.status(400).json(err));
   },
   // the addFriend method will add a friend to the database for the user
-  addFriend({params}, res) {
+  addFriend({ params }, res) {
     User.findOneAndUpdate(
-      {_id: params.id},
-      {$addToSet: {friends: params.friendsId}},
-      {new: true}
+      { _id: params.id },
+      { $addToSet: { friends: params.friendsId } },
+      { new: true }
     )
-    .then((dbUserData) => res.json(dbUserData))
-    .catch((err) => res.status(400).json(err));
+      .then((dbUserData) => res.json(dbUserData))
+      .catch((err) => res.status(400).json(err));
+  },
+  // will remove a friend from the user
+  removeFriend({ params }, res) {
+    User.findOneAndUpdate(
+      { _id: params.id },
+      { $pull: { friends: params.friendsId } },
+      { new: true }
+    )
+      .then((dbUserData) => {
+        if (!dbUserData) {
+          res.status(404).json({message: "No user found with this ID!"});
+          return;
+        }
+        res.json(dbUserData);
+      })
+      .catch((err) => res.status(400).json(err));
   },
 };
