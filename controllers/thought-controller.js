@@ -127,4 +127,16 @@ const thoughtController = {
     })
     .catch(err => res.json(err));
   },
+  // a reaction is removed from a thought by using the id of the thought and the reaction
+  // any new data that is entered will be validated
+  removeReaction({params}, res) {
+    console.log(params.thoughtId, params.reactionId);
+    Thought.findOneAndUpdate(
+        {_id: params.thoughtId},
+        {$pull: {reactions: {reactionId: params.reactionId}}},
+        {runValidators: true, new: true}
+    )
+    .then(dbUserData => res.json(dbUserData))
+    .catch(err => res.json(err));
+  }
 };
