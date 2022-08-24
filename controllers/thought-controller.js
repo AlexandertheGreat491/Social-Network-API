@@ -140,3 +140,6 @@ const thoughtController = {
     .catch(err => res.json(err));
   }
 };
+
+// exports the thoughtController
+module.exports = thoughtController;
