@@ -4,31 +4,26 @@ const router = require("express").Router();
 // imports the methods from the thought-controller
 const {
   getAllThoughts,
-  addThought,
   getThoughtById,
   updateThought,
-  removeThought,
+  deleteThought,
+  createThought,
   addReaction,
   removeReaction,
 } = require("../../controllers/thought-controller");
-// imports the user-routes
-const { router } = require("./user-routes");
 
 // /api/thoughts
 // GET for all thoughts and POST for newly created thoughts
-router.route("/").get(getAllThoughts);
-
-// /api/thoughts/:userId
-// POST route to add thoughts to a specific user
-router.router("/:userId").post(addThought);
+router.route("/").get(getAllThoughts).post(createThought);
 
 // /api/thoughts/:thoughtId
 // route will GET thoughts by id, PUT (update) thoughts by id, and DELETE thoughts by id
 router.route("/:thoughtId").get(getThoughtById).put(updateThought);
 
-// /api/thoughts/:userId/:thoughtId
+// GET route to retrieve thoughts by their id
+// PUT route to update thoughts by their id
 // DELETE route to remove a thought from a specific user
-router.route(":/userId/:thoughtId").delete(removeThought);
+router.route("/:id").get(getThoughtById).put(updateThought).delete(deleteThought);
 
 // /api/thoughts/:thoughtId/reactions
 // POST route to add reactions to a specific thought

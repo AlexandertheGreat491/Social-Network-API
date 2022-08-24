@@ -7,7 +7,7 @@ const thoughtRoutes = require('./thought-routes');
 
 // will allow the app to access the routes
 router.use('/users', userRoutes);
-router.user('/thoughts', thoughtRoutes);
+router.use('/thoughts', thoughtRoutes);
 
 // exports the routes from the api subdirectory
 module.exports = router;
