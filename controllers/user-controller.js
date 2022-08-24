@@ -38,4 +38,10 @@ const userController = {
         res.status(400).json(err);
       });
   },
+  // the createUser method will create a new user in the database
+  createUser({body}, res) {
+    User.create(body)
+    .then((dbUserData) => res.json(dbUserData))
+    .catch((err) => res.status(400).json(err));
+  }
 };
