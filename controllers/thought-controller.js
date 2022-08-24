@@ -80,4 +80,28 @@ const thoughtController = {
       })
       .catch((err) => res.status(400).json(err));
   },
+  // the removeThought method will allow a thought to be removed from a specific user by id
+  removeThought({ params }, res) {
+    Thought.findOneAndDelete({ _id: params.thoughtId })
+      .then((deletedThought) => {
+        if (!deletedThought) {
+          return res
+            .status(404)
+            .json({ message: "No thought was found with this id!" });
+        }
+        return User.findOneAndUpdate(
+          { _id: params.userId },
+          { $pull: { thoughts: params.thoughtId } },
+          { new: true }
+        );
+      })
+      .then((dbUserData) => {
+        if (!dbUserData) {
+          res.status(404).json({ message: "No user was found with this id!" });
+          return;
+        }
+        res.json(dbUserData);
+      })
+      .catch(err => res.json(err));
+  },
 };
