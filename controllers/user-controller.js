@@ -56,4 +56,16 @@ const userController = {
     })
     .catch((err) => res.status(400).json(err));
   },
+  // the deleteUser method will remove a user from the database
+  deleteUser({params}, res) {
+    User.findOneAndDelete({_id: params.id})
+    .then((dbUserData) => {
+      if (!dbUserData) {
+        res.status(404).json({message: "A user with this ID was not found!"});
+        return;
+      }
+      res.json(dbUserData);
+    })
+    .catch((err) => res.status(400).json(err));
+  },
 };
