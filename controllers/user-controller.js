@@ -1,5 +1,7 @@
 // imports the models
 const { User } = require("../models");
+const { populate } = require("../models/User");
+
 
 const userController = {
   // the getAllUsers method will get all the users present in the database
