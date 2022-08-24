@@ -1,6 +1,6 @@
 // imports the models
 const { User } = require("../models");
-const { populate } = require("../models/User");
+
 
 
 const userController = {

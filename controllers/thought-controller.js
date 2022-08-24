@@ -22,21 +22,46 @@ const thoughtController = {
   },
   // get a specific thought by it's id
   getThoughtById({ params }, res) {
-    Thought.findOne({ _id: params.id }).then((dbThoughtData) => {
-      // if a thought with a certain id is not found
-      if (!dbThoughtData) {
-        res
-          .status(404)
-          .json({
+    Thought.findOne({ _id: params.id })
+      .then((dbThoughtData) => {
+        // if a thought with a certain id is not found
+        if (!dbThoughtData) {
+          res.status(404).json({
             message: "The thought that you seek was not found with that id!",
           });
-        return;
-      }
-      res.json(dbThoughtData);
-    })
-    .catch((err) => {
+          return;
+        }
+        res.json(dbThoughtData);
+      })
+      .catch((err) => {
         console.log(err);
         res.status(400).json(err);
-    });
+      });
+  },
+  // add a thought to a user with the addThought method
+  addThought({ params, body }, res) {
+    console.log(body);
+    Thought.create(body)
+      .then(({ _id }) => {
+        return User.findOneAndUpdate(
+          { _id: params.userId },
+          { $push: { thoughts: _id } },
+          { new: true }
+        );
+      })
+      .then((dbUserData) => {
+        // if a thought cannot be added to a user, when the user is not present in the database
+        if (!dbUserData) {
+          res
+            .status(404)
+            .json({
+              message:
+                "The user you are looking for cannot be found with this id!",
+            });
+          return;
+        }
+        res.json(dbUserData);
+      })
+      .catch((err) => res.json(err));
   },
 };
