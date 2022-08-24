@@ -11,3 +11,8 @@ const {
   addFriend,
   removeFriend,
 } = require("../../controllers/user-controller");
+
+// user routes
+// /api/users
+// GET all users and POST to create new users
+router.route("/").get(getAllUsers).post(createUser);
