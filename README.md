@@ -50,6 +50,8 @@ Sources:
 
 [Mongoose](https://www.npmjs.com/package/mongoose)
 
+[Mongoose Populate() Method](https://www.geeksforgeeks.org/mongoose-populate-method/)
+
 [MVC](https://developer.mozilla.org/en-US/docs/Glossary/MVC)
 
 ## License
