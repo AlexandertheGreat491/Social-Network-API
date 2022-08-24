@@ -7,7 +7,15 @@ const {
     addThought,
     getThoughtById,
     updateThought,
+    createThought,
     removeThought,
     addReaction,
     removeReaction
 } = require('../../controllers/thought-controller');
+
+// /api/thoughts
+// GET for all thoughts and POST for newly created thoughts
+router
+.route('/')
+.get(getAllThoughts)
+.post(createThought)
