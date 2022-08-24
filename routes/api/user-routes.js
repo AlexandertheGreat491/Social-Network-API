@@ -23,3 +23,10 @@ router.route("/").get(getAllUsers).post(createUser);
 // route will get, updated, delete users by their id
 
 router.route("/:id").get(getUserById).put(updateUser).delete(deleteUser);
+
+// /api/users/:userId/friends/:friendsId
+// route will add and remove friends from users by using the friend's id and the user's id
+router
+.route('/:id/friends/:friendId')
+.post(addFriend)
+.delete(removeFriend)
