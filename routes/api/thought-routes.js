@@ -4,10 +4,10 @@ const router = require('express').Router();
 // imports the methods from the thought-controller
 const {
     getAllThoughts,
-    addThoughts,
+    addThought,
     getThoughtById,
     updateThought,
     removeThought,
     addReaction,
     removeReaction
-} = require('../../controllers/user-controller');
+} = require('../../controllers/thought-controller');
