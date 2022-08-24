@@ -62,7 +62,7 @@ const thoughtController = {
       })
       .catch((err) => res.json(err));
   },
-  // the updateThought method is used to updated thoughts by id
+  // the updateThought method is used to updated thoughts by id and data is validated
   updateThought({ params, body }, res) {
     Thought.findOneAndUpdate({ _id: params.thoughtId }, body, {
       new: true,
@@ -110,15 +110,18 @@ const thoughtController = {
   },
   // the addReaction method will allow reactions to be added to thoughts
   addReaction({ params, body }, res) {
+    // a reaction is added to a thought by id and data is validated
     Thought.findOneAndUpdate(
       { _id: params.thoughtId },
       { $addToSet: { reactions: body } },
       { new: true, runValidators: true }
     ).then((dbThoughtData) => {
+        // when the specific thought that the user is attempting to add the reaction to cannot be found by the id
+        // the message will appear in the json
       if (!dbThoughtData) {
         return res
           .status(404)
-          .json({ message: "No thoguht was found with this id!" });
+          .json({ message: "No thought was found with this id!" });
       }
       res.json(dbThoughtData);
     })
