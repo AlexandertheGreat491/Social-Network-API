@@ -1,5 +1,5 @@
 // imports the models
-const { User } = require("../models");
+const { User, Thought } = require("../models");
 
 const userController = {
   // the getAllUsers method will get all the users present in the database
@@ -43,5 +43,17 @@ const userController = {
     User.create(body)
     .then((dbUserData) => res.json(dbUserData))
     .catch((err) => res.status(400).json(err));
-  }
+  },
+  // the updateUser method updates a user
+  updateUser({params, body}, res) {
+    User.findOneAndUpdate({_id: params.id}, body, {new: true})
+    .then((dbUserData) => {
+      if (!dbUserData) {
+        res.status(404).json({message: "No user found with this ID!"});
+        return;
+      }
+      res.json(dbUserData);
+    })
+    .catch((err) => res.status(400).json(err));
+  },
 };
