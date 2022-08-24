@@ -30,3 +30,6 @@ router
 .route('/:id/friends/:friendId')
 .post(addFriend)
 .delete(removeFriend)
+
+// exports the user routes
+module.exports = router;
