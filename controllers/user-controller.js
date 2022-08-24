@@ -1,5 +1,6 @@
 // imports the models
-const { User, Thought } = require("../models");
+const { User } = require("../models");
+const { populate } = require("../models/User");
 
 const userController = {
   // the getAllUsers method will get all the users present in the database
@@ -66,6 +67,16 @@ const userController = {
       }
       res.json(dbUserData);
     })
+    .catch((err) => res.status(400).json(err));
+  },
+  // the addFriend method will add a friend to the database for the user
+  addFriend({params}, res) {
+    User.findOneAndUpdate(
+      {_id: params.id},
+      {$addToSet: {friends: params.friendsId}},
+      {new: true}
+    )
+    .then((dbUserData) => res.json(dbUserData))
     .catch((err) => res.status(400).json(err));
   },
 };
