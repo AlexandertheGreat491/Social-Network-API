@@ -52,16 +52,32 @@ const thoughtController = {
       .then((dbUserData) => {
         // if a thought cannot be added to a user, when the user is not present in the database
         if (!dbUserData) {
-          res
-            .status(404)
-            .json({
-              message:
-                "The user you are looking for cannot be found with this id!",
-            });
+          res.status(404).json({
+            message:
+              "The user you are looking for cannot be found with this id!",
+          });
           return;
         }
         res.json(dbUserData);
       })
       .catch((err) => res.json(err));
+  },
+  // the updateThought method is used to updated thoughts by id
+  updateThought({ params, body }, res) {
+    Thought.findOneAndUpdate({ _id: params.thoughtId }, body, {
+      new: true,
+      runValidators: true,
+    })
+      .then((dbThoughtData) => {
+        // when a thought with a certain id is not found in the update query
+        if (!dbThoughtData) {
+          res
+            .status(404)
+            .json({ message: "No thought was found with this id!" });
+          return;
+        }
+        res.json(dbThoughtData);
+      })
+      .catch((err) => res.status(400).json(err));
   },
 };
