@@ -82,25 +82,6 @@ const thoughtController = {
       })
       .catch((err) => res.status(400).json(err));
   },
-  // the createThought method will create a new thought for a user by id
-  createThought({ params, body }, res) {
-    Thought.create(body).then(({ _id }) => {
-      return User.findOneAndUpdate(
-        { _id: params.userId },
-        { $push: { thoughts: _id } },
-        { new: true }
-      );
-    })
-    //if no thought with that id is found
-    .then(dbThoughtData => {
-      if(!dbThoughtData) {
-        res.status(404).json({message: 'No thoughts were found with this particular id!'});
-        return;
-      }
-      res.json(dbThoughtData)
-    })
-    .catch(err => res.json(err));
-  },
   // the removeThought method will allow a thought to be removed from a specific user by id
   removeThought({ params }, res) {
     // a specific thought is deleted using its id
