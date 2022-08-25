@@ -55,6 +55,8 @@ Collaborators:
 
 Sources:
 
+[Dev Cheatsheets](https://michaelcurrin.github.io/dev-cheatsheets/cheatsheets/markdown/lists.html)
+
 [Express](https://www.npmjs.com/package/express)
 
 [Express Tutorial Part 3: Using a Database with Mongoose](https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/mongoose)
