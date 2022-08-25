@@ -1,10 +1,10 @@
 //import statements
 const { Schema, model, Types } = require("mongoose");
-// imports the logic to format the data entered into the createdAt field
+// imports the logic to format dates
 const dateFormat = require("../utils/dateFormat");
 
 // the reaction schema is associated with the thought model & schema
-// reaction schema only
+// reaction schema only, no model
 const reactionSchema = new Schema({
   // reactioinId field
   // sets a custom id to prevent confusion with the parent id
@@ -40,9 +40,9 @@ const reactionSchema = new Schema({
 }
 );
 
-//thoughtSchema
+// thoughtSchema
 const thoughtSchema = new Schema({
-  // thoughtText field that has between 1 and 280 characters
+  // thoughtText field that has at least 1 character and not more than 280 characters
   thoughtText: {
     type: String,
     required: true,
@@ -74,7 +74,7 @@ const thoughtSchema = new Schema({
 }
 );
 
-// the reactionCount virtual that retrieves the length of the thought's reaction array field on query
+// the reactionCount virtual retrieves the length of the thought's reaction array field on query
 thoughtSchema.virtual("reactionCount").get(function () {
     return this.reactions.length;
 });

@@ -12,12 +12,14 @@ const {
   removeReaction,
 } = require("../../controllers/thought-controller");
 
+// thought routes
+
 // /api/thoughts
 // GET for all thoughts and POST for newly created thoughts
 router.route("/").get(getAllThoughts).post(createThought);
 
 // /api/thoughts/:thoughtId
-// route will GET thoughts by id, PUT (update) thoughts by id, and DELETE thoughts by id
+// route will GET, PUT (update), and DELETE thoughts by id
 router
   .route("/:id")
   .get(getThoughtById)

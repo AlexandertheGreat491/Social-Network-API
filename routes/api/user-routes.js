@@ -20,7 +20,7 @@ const {
 router.route("/").get(getAllUsers).post(createUser);
 
 // /api/users/:id
-// route will get, updated, delete users by their id
+// route will get, update, delete users by their id
 
 router.route("/:id").get(getUserById).put(updateUser).delete(deleteUser);
 

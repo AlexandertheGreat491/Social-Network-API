@@ -2,7 +2,6 @@
 const { User } = require("../models");
 
 
-
 const userController = {
   // the getAllUsers method will get all the users present in the database
   getAllUsers(req, res) {
@@ -19,6 +18,7 @@ const userController = {
         res.status(400).json(err);
       });
   },
+
   // the getUserById method will query a user using the user's id
   getUserById({ params }, res) {
     User.findOne({ _id: params.id })
@@ -40,13 +40,15 @@ const userController = {
         res.status(400).json(err);
       });
   },
+
   // the createUser method will create a new user in the database
   createUser({ body }, res) {
     User.create(body)
       .then((dbUserData) => res.json(dbUserData))
       .catch((err) => res.status(400).json(err));
   },
-  // the updateUser method updates a user
+
+  // the updateUser method updates a user by their id
   updateUser({ params, body }, res) {
     User.findOneAndUpdate({ _id: params.id }, body, { new: true })
       .then((dbUserData) => {
@@ -58,7 +60,8 @@ const userController = {
       })
       .catch((err) => res.status(400).json(err));
   },
-  // the deleteUser method will remove a user from the database
+
+  // the deleteUser method will remove a user from the database by their id
   deleteUser({ params }, res) {
     User.findOneAndDelete({ _id: params.id })
       .then((dbUserData) => {
@@ -72,7 +75,8 @@ const userController = {
       })
       .catch((err) => res.status(400).json(err));
   },
-  // the addFriend method will add a friend to the database for the user
+
+  // the addFriend method will add a friend to the user
   addFriend({ params }, res) {
     User.findOneAndUpdate(
       { _id: params.userId },
@@ -88,7 +92,8 @@ const userController = {
       })
       .catch(err => res.json(err));
   },
-  // will remove a friend from the user
+
+  // the removeFriend method will remove a friend from the user
   removeFriend({ params }, res) {
     User.findOneAndUpdate(
       { _id: params.userId },
