@@ -2,7 +2,8 @@
 
 ## Table of Contents
 
-If your README is long, add a table of contents to make it easy for users to find what they need.
+Please use this table of contents to help you in navigating this README.
+
 - [Description](#description)
 - [Installation](#installation)
 - [Usage](#usage)
@@ -11,30 +12,46 @@ If your README is long, add a table of contents to make it easy for users to fin
 
 ## Description
 
-Provide a short description explaining the what, why, and how of your project. Use the following questions as a guide:
+An API for a social network web application where users can share thoughts, react to friend's thoughts, and create a friend list.
 
 - What was your motivation?
-- Why did you build this project? (Note: the answer is not "Because it was a homework assignment.")
-- What problem does it solve?
+
+My motivation for creating this project was to build an API that could be used in future development, if I were to decide that I wanted to create a social network application. Already, having the API built could mean that I would simply need to build the front-end.
+
 - What did you learn?
+
+I learned how to create an API utilizing the non-relational database technology MongoDB and combine that with my prior knowledge of the MVC paradigm.
 
 ## Installation
 
-What are the steps required to install your project? Provide a step-by-step description of how to get the development environment running.
+Please follow these seven steps to install the social network API on your local computer.
+
+-Step 1: Go to the [Social Network API](https://github.com/AlexandertheGreat491/Social-Network-API.git) public repository and 
+fork the repository and then utlize the `git clone` command in your terminal to clone the repository.
+
+-Step 2: Open the folder where the project is saved on your local computer in your code editor and open an integrated terminal.
+
+-Step 3: Run the command `npm i` to install the required libraries.
+
+-Step 4: Make sure to create a .gitignore file and include the node_modules.
+
+-Step 5: Connect to the server by running the command `npm start`.
+
+-Step 6: Alternatively, to run the server and not have to restart it every time you make a change to the project, install nodemon by running the command `npm i nodemon`.
+
+-Step 7: By this step the project will be installed on your local computer.
 
 ## Usage
 
-Provide instructions and examples for use. Include screenshots as needed.
+Please view the walkthrough video to get an idea of how the social network API is used.
 
-To add a screenshot, create an `assets/images` folder in your repository and upload your screenshot to it. Then, using the relative filepath, add it to your README using the following syntax:
-
-    ```md
-    ![alt text](assets/images/screenshot.png)
-    ```
+(walkthrough video link will go here)
 
 ## Credits
 
 Collaborators:
+
+[Alexander Van Dyke](https://github.com/AlexandertheGreat491)
 
 Sources:
 
