@@ -25,13 +25,9 @@ router.route("/:thoughtId").get(getThoughtById).put(updateThought);
 // DELETE route to remove a thought from a specific user
 router.route("/:id").get(getThoughtById).put(updateThought).delete(deleteThought);
 
-// /api/thoughts/:thoughtId/reactions
-// POST route to add reactions to a specific thought
-router.route("/:thoughtId/reactions").post(addReaction);
-
 // /api/:thoughtId/reactions/:reactionId
 // DELETE route to remove a specific reaction from a particular thought
-router.route(":/thoughtId/reactions/:reactionId").delete(removeReaction);
+router.route(":/thoughtId/reactions/:reactionId").post(addReaction).delete(removeReaction);
 
 // exports the thought routes
 module.exports = router;
