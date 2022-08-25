@@ -26,7 +26,7 @@ router.route("/:id").get(getUserById).put(updateUser).delete(deleteUser);
 
 // /api/users/:userId/friends/:friendId
 // route will add and remove friends from users by using the friend's id and the user's id
-router.route("/:id/friends/:friendId").post(addFriend).delete(removeFriend);
+router.route("/:userId/friends/:friendId").post(addFriend).delete(removeFriend);
 
 // exports the user routes
 module.exports = router;
