@@ -45,7 +45,7 @@ fork the repository and then utlize the `git clone` command in your terminal to 
 
 Please view the walkthrough video to get an idea of how the social network API is used.
 
-(walkthrough video link will go here)
+[Walkthrough Video](https://vimeo.com/743245394)
 
 ## Credits
 
