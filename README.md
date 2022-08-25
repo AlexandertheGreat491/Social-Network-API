@@ -48,6 +48,8 @@ Sources:
 
 [Professional README Guide](https://coding-boot-camp.github.io/full-stack/github/professional-readme-guide)
 
+[Mongoose Docs](https://mongoosejs.com/docs/index.html)
+
 [Mongoose](https://www.npmjs.com/package/mongoose)
 
 [Mongoose Populate() Method](https://www.geeksforgeeks.org/mongoose-populate-method/)
