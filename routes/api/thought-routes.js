@@ -18,16 +18,18 @@ router.route("/").get(getAllThoughts).post(createThought);
 
 // /api/thoughts/:thoughtId
 // route will GET thoughts by id, PUT (update) thoughts by id, and DELETE thoughts by id
-router.route("/:thoughtId").get(getThoughtById).put(updateThought);
+router
+  .route("/:id")
+  .get(getThoughtById)
+  .put(updateThought)
+  .delete(deleteThought);
 
-// GET route to retrieve thoughts by their id
-// PUT route to update thoughts by their id
-// DELETE route to remove a thought from a specific user
-router.route("/:id").get(getThoughtById).put(updateThought).delete(deleteThought);
-
-// /api/thoughts/:thoughtId/reactions
+// /api/thoughts/:id/reactions
+// POST route to add a reaction to a thought
 // DELETE route to remove a specific reaction from a particular thought
-router.route(":/thoughtId/reactions").post(addReaction).delete(removeReaction);
+router.route("/:id/reactions").post(addReaction);
+
+router.route("/:id/reactions/:reactionId").delete(removeReaction);
 
 // exports the thought routes
 module.exports = router;

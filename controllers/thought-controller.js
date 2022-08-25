@@ -14,16 +14,17 @@ const thoughtController = {
   // get a specific thought by it's id
   getThoughtById({ params }, res) {
     Thought.findOne({ _id: params.id })
-      .populate({ path: "reactions", select: "-__v" })
-      .select("-__v")
-      .then((dbThoughtData) =>
-        dbThoughtData
-          ? res.json(dbThoughtData)
-          : res
-              .status(404)
-              .json({ message: "No thought with that id was found!" })
-      )
-      .catch((err) => res.status(404).json(err));
+            .then(dbThoughtData => {
+                if (!dbThoughtData) {
+                    res.status(404).json({ message: 'No thought found with this id.' });
+                    return;
+                }
+                res.json(dbThoughtData);
+            })
+            .catch(err => {
+                console.log(err);
+                res.status(400).json(err);
+            });
   },
   // creates a new thought for a specific user
   createThought({ params, body }, res) {
@@ -35,14 +36,14 @@ const thoughtController = {
           { new: true }
         )
       )
-      .then(dbUserData => {
+      .then((dbUserData) => {
         if (!dbUserData) {
-          res.status(404).json({message: 'No user found with this id!'});
+          res.status(404).json({ message: "No user found with this id!" });
           return;
         }
         res.json(dbUserData);
       })
-      .catch(err => res.json(err));
+      .catch((err) => res.json(err));
   },
 
   // the updateThought method is used to updated thoughts by id and data is validated
@@ -51,14 +52,16 @@ const thoughtController = {
       new: true,
       runValidators: true,
     })
-      .then(dbThoughtData => {
+      .then((dbThoughtData) => {
         if (!dbThoughtData) {
-          res.status(404).json({message: 'No thought was found with this id!'});
+          res
+            .status(404)
+            .json({ message: "No thought was found with this id!" });
           return;
         }
         res.json(dbThoughtData);
       })
-      .catch(err => res.status(400).json(err));
+      .catch((err) => res.status(400).json(err));
   },
 
   // the deleteThought method removes a thought from a specific user by id
@@ -74,11 +77,12 @@ const thoughtController = {
       .catch((err) => res.status(404).json(err));
   },
 
-  // the addReaction method will allow reactions to be added to thoughts
+  // POST the addReaction method will allow reactions to be added to thoughts
+  // any new data that is entered will be validated
   addReaction({ params, body }, res) {
     // a reaction is added to a thought by id and data is validated
     Thought.findOneAndUpdate(
-      { _id: params.thoughtId },
+      { _id: params.id },
       { $addToSet: { reactions: body } },
       { new: true, runValidators: true }
     )
@@ -86,25 +90,24 @@ const thoughtController = {
         // when the specific thought that the user is attempting to add the reaction to cannot be found by the id
         // the message will appear in the json
         if (!dbThoughtData) {
-          return res
+          res
             .status(404)
             .json({ message: "No thought was found with this id!" });
+          return;
         }
         res.json(dbThoughtData);
       })
       .catch((err) => res.json(err));
   },
-  // a reaction is removed from a thought by using the id of the thought and the reaction
-  // any new data that is entered will be validated
+  // DELETE a reaction is removed from a thought by using the id of the thought and the reaction
   removeReaction({ params }, res) {
-    console.log(params.thoughtId, params.reactionId);
     Thought.findOneAndUpdate(
-      { _id: params.thoughtId },
+      { _id: params.id },
       { $pull: { reactions: { reactionId: params.reactionId } } },
-      { runValidators: true, new: true }
-    )
-      .then((dbUserData) => res.json(dbUserData))
-      .catch((err) => res.json(err));
+      { new: true }
+  )
+      .then(dbThoughtData => res.json(dbThoughtData))
+      .catch(err => res.json(err));
   },
 };
 
