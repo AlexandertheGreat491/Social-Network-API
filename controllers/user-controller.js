@@ -75,9 +75,9 @@ const userController = {
   // the addFriend method will add a friend to the database for the user
   addFriend({ params }, res) {
     User.findOneAndUpdate(
-      { _id: params.id },
-      { $addToSet: { friends: params.friendsId } },
-      { new: true }
+      { _id: params.userId },
+      { $push: { friends: params.friendId } },
+      { new: true, runValidators: true }
     )
       .then((dbUserData) => res.json(dbUserData))
       .catch((err) => res.status(400).json(err));
@@ -85,9 +85,8 @@ const userController = {
   // will remove a friend from the user
   removeFriend({ params }, res) {
     User.findOneAndUpdate(
-      { _id: params.id },
-      { $pull: { friends: params.friendsId } },
-      { new: true }
+      { _id: params.userId },
+      { $pull: { friends: params.friendId } },
     )
       .then((dbUserData) => {
         if (!dbUserData) {
